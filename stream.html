@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="icon" href="static/icon/favicon.ico">
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/flv.min.js"></script>
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+    <title>클라우드컴퓨팅 기능경기대회</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">클라우드컴퓨팅 기능경기대회 모니터링</a>
+    </div>
+</nav>
+<div style="width: 100%;">
+    <video autoplay muted id="video" style="width: 100%; object-fit: fill;"></video>
+    <h1>PLAYER : <span id="player-id"></span></h1>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const address = urlParams.get('address');
+    const port = urlParams.get('port');
+    const playerNum = urlParams.get('player');
+
+    if(flvjs.isSupported()) {
+        let url = 'http://' + address + ':' + port + '/live/' + playerNum + '.flv';
+        let videoElement = document.getElementById('video');
+        let flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            url: url
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+
+        document.getElementById('player-id').innerText = playerNum;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+streaming:
+  image: "ghcr.io/jennas-lee/cloud-skills-monitoring-server:latest"
+  ports:
+    - "1935:1935"
+    - "8000:8000"
+  volumes:
+    - "/media:/media"
+  container_name: "cloud-skills-monitoring-server"
+
+web:
+  image: "ghcr.io/jennas-lee/cloud-skills-monitoring-client:latest"
+  ports:
+    - "80:80"
+  container_name: "cloud-skills-monitoring-client"

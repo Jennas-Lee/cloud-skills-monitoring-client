@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="icon" href="static/icon/favicon.ico">
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/flv.min.js"></script>
+    <style>
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+    <title>클라우드컴퓨팅 기능경기대회</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">클라우드컴퓨팅 기능경기대회 모니터링</a>
+    </div>
+</nav>
+<div class="container">
+    <h1 class="display-1 text-center">클라우드컴퓨팅 기능경기대회 모니터링</h1>
+    <div class="mt-4 text-center">
+        <form action="stream.html" method="GET">
+            <input type="text" name="address" class="form-control d-inline" placeholder="스트리밍 주소"
+                   style="width: 300px;">
+            <input type="text" name="port" class="form-control d-inline" placeholder="스트리밍 포트"
+                   style="width: 150px;">
+            <input type="text" name="player" class="form-control d-inline" placeholder="선수 번호"
+                   style="width: 150px;">
+            <button type="submit" class="btn btn-primary d-inline">접속</button>
+        </form>
+    </div>
+    <div class="mt-4" id="detected"></div>
+    <script>
+        const createDetectedMonitorBtn = (address, port, key) => {
+            let btn = document.createElement('a');
+
+            btn.setAttribute('href', 'stream.html?address=' + address + '&port=' + port + '&player=' + key);
+            btn.setAttribute('class', 'btn btn-primary me-2');
+            btn.setAttribute('target', '_blank');
+            btn.innerText = key;
+
+            return btn;
+        }
+
+        const getAvailableStreamPublisher = () => {
+            const xhr = new XMLHttpRequest();
+            let url = "http://" + window.location.hostname + ":8000/api/streams";
+
+            xhr.open("GET", url);
+
+            xhr.onreadystatechange = (event) => {
+                if (event.target.readyState === XMLHttpRequest.DONE) {
+                    if (event.target.status === 200) {
+                        let monitor_list = document.getElementById('detected');
+                        let monitor_list_title = document.createElement('h1');
+
+                        monitor_list_title.setAttribute('class', 'text-center');
+                        monitor_list_title.innerText = "감지된 화면";
+                        monitor_list.appendChild(monitor_list_title);
+
+                        const obj = JSON.parse(xhr.responseText);
+                        for (const key in Object.keys(obj['live'])) {
+                            console.log(obj['live'][Object.keys(obj['live'])[key]]);
+                            monitor_list.appendChild(createDetectedMonitorBtn(window.location.hostname, 8000, Object.keys(obj['live'])[key]));
+                        }
+                    }
+                }
+            }
+
+            xhr.send();
+        }
+
+        const xhr = new XMLHttpRequest();
+        let url = "http://" + window.location.hostname + ":8000/api/server";
+
+        xhr.open("GET", url);
+
+        xhr.onreadystatechange = (event) => {
+            if (event.target.readyState === XMLHttpRequest.DONE) {
+                if (event.target.status === 200) {
+                    getAvailableStreamPublisher();
+                }
+            }
+        }
+
+        xhr.send();
+    </script>
+</div>
+</body>
+</html>
