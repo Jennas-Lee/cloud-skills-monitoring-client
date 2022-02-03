@@ -1,0 +1,15 @@
+sudo: required
+
+language: generic
+
+node_js:
+  - 16
+
+services:
+  - docker
+
+before_install:
+  - echo -e "\033[0;36mStart \"Before \"Install\033[0m"
+  - echo -e "\033[0;33mNODE Version : `node -v`\033[0m"
+  - echo -e "\033[0;33mNPM Version : `npm -v`\033[0m"
+  - npm install
