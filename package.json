@@ -1,7 +1,7 @@
 {
-  "name": "cloud-skills-monitoring-server",
+  "name": "cloud-skills-monitoring-client",
   "version": "0.0.1",
-  "description": "A monitoring server to WorldSkills Korea Cloud Computing.",
+  "description": "A monitoring client to WorldSkills Korea Cloud Computing.",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -33,12 +33,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jennas-Lee/cloud-skills-monitoring-server.git"
+    "url": "git+https://github.com/Jennas-Lee/cloud-skills-monitoring-client.git"
   },
   "author": "Jennas Lee",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Jennas-Lee/cloud-skills-monitoring-server/issues"
+    "url": "https://github.com/Jennas-Lee/cloud-skills-monitoring-client/issues"
   },
   "eslintConfig": {
     "extends": [

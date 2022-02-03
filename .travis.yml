@@ -8,8 +8,36 @@ node_js:
 services:
   - docker
 
+branches:
+  only:
+    - main
+
 before_install:
-  - echo -e "\033[0;36mStart \"Before \"Install\033[0m"
-  - echo -e "\033[0;33mNODE Version : `node -v`\033[0m"
-  - echo -e "\033[0;33mNPM Version : `npm -v`\033[0m"
+    - echo -e "\033[0;36mStart \"Before Install\"\033[0m"
+    - echo -e "\033[0;33mNODE Version ":" `node -v`\033[0m"
+    - echo -e "\033[0;33mNPM Version ":" `npm -v`\033[0m"
+    - echo -e "\033[0;33mDOCKER Version ":" `docker --version`\033[0m"
+
+install:
+  - echo -e "\033[0;36mStart \"Install\"\033[0m"
   - npm install
+  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  - docker buildx create --name xbuilder --use~
+
+before_script:
+  - echo -e "\033[0;36mStart \"Before Script\"\033[0m"
+  - npm run test
+  - npm run build
+  - curl -fsSL https://get.docker.com | sh
+  - echo '{"experimental":"enabled"}' | sudo tee /etc/docker/daemon.json
+  - mkdir -p $HOME/.docker
+  - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
+  - sudo service docker start
+  - echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+
+script:
+  - echo -e "\033[0;36mStart \"Script\"\033[0m"
+  - DOCKER_REPO="ghcr.io/jennas-lee/cloud-skills-monitoring-client"
+  - DOCKER_TAG=`npm version --json | jq '.["cloud-skills-monitoring-client"]' -r`
+  - docker buildx build --progress plain --platform=linux/amd64,linux/arm64 -t $DOCKER_REPO:$DOCKER_TAG --push .
+  - docker buildx build --progress plain --platform=linux/amd64,linux/arm64 -t $DOCKER_REPO:latest --push .
