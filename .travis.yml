@@ -17,7 +17,7 @@ before_install:
     - echo -e "\033[0;33mNODE Version ":" `node -v`\033[0m"
     - echo -e "\033[0;33mNPM Version ":" `npm -v`\033[0m"
     - echo -e "\033[0;33mDOCKER Version ":" `docker --version`\033[0m"
-    - apt-get install -y jq
+    - sudo apt-get install -y jq
 
 install:
   - echo -e "\033[0;36mStart \"Install\"\033[0m"
