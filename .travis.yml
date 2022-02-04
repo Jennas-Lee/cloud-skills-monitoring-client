@@ -1,6 +1,8 @@
-sudo: required
+language: node_js
 
-language: generic
+os: linux
+
+dist: xenial
 
 node_js:
   - 16
