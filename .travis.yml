@@ -23,7 +23,7 @@ install:
   - echo -e "\033[0;36mStart \"Install\"\033[0m"
   - npm install
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-  - docker buildx create --name xbuilder --use~
+  - docker buildx create --name xbuilder --use
 
 before_script:
   - echo -e "\033[0;36mStart \"Before Script\"\033[0m"
