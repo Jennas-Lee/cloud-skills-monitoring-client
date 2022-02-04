@@ -1,6 +1,6 @@
 {
   "name": "cloud-skills-monitoring-client",
-  "version": "0.0.1",
+  "version": "0.1.0-pre1",
   "description": "A monitoring client to WorldSkills Korea Cloud Computing.",
   "dependencies": {
     "@emotion/react": "^11.7.1",

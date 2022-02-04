@@ -1,8 +1,8 @@
 # Cloud Skills Monitoring Server
 
 [![Build Status](https://app.travis-ci.com/Jennas-Lee/cloud-skills-monitoring-client.svg?branch=main)](https://app.travis-ci.com/Jennas-Lee/cloud-skills-monitoring-client)
+![Version](https://img.shields.io/github/package-json/v/Jennas-Lee/cloud-skills-monitoring-client)
 ![License](https://img.shields.io/github/license/Jennas-Lee/cloud-skills-monitoring-client)
-![Version](https://img.shields.io/github/v/release/Jennas-Lee/cloud-skills-monitoring-client)
 
 
 - [Introduction](#introduction)
