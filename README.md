@@ -22,7 +22,7 @@ You can use docker-compose or run only streaming server.
 
 ``` shell
 curl -O https://raw.githubusercontent.com/Jennas-Lee/cloud-skills-monitoring-client/main/docker-compose.yml
-docker-compose up
+docker-compose up -d
 ```
 
 ### Pull and Run Streaming Client Web Server Only
