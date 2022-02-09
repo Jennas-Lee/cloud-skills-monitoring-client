@@ -90,11 +90,6 @@ const Navbar = (props: authenticatedProps) => {
     setAnchorElUser(null);
   };
 
-  useEffect(() => {
-    console.log(props.authenticated)
-
-  });
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

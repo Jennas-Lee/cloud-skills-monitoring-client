@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
@@ -36,14 +36,16 @@ const App = () => {
 
   return (
     <ThemeProvider theme={THEME}>
-      <Navbar authenticated={authenticated} />
-      <Routes>
-        <Route path="/" element={<Main />}/>
-        <Route path="/auth/signin" element={<SignIn authenticated={authenticated} />}/>
-        <Route path="/auth/signup" element={<SignUp authenticated={authenticated} />}/>
-        <Route path="/auth/account" element={<Account authenticated={authenticated} />}/>
-        <Route path={"*"} element={<Error404 />} />
-      </Routes>
+      <BrowserRouter>
+        <Navbar authenticated={authenticated}/>
+        <Routes>
+          <Route path="/" element={<Main/>}/>
+          <Route path="/auth/signin" element={<SignIn authenticated={authenticated}/>}/>
+          <Route path="/auth/signup" element={<SignUp authenticated={authenticated}/>}/>
+          <Route path="/auth/account" element={<Account authenticated={authenticated}/>}/>
+          <Route path={"*"} element={<Error404/>}/>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
